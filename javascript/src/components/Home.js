@@ -4,7 +4,7 @@ import './global.scss';
 
 const Home = () => {
   return (
-    <div className="generic">
+    <div>
       Hello World!
     </div>
   );
