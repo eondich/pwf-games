@@ -5,14 +5,17 @@ const port = 3001;
 
 module.exports = {
   mode: 'development',
-  entry: './src/index.js',
+  entry: './src/index.tsx',
   output: {
     filename: 'bundle.[hash].js'
+  },
+  resolve: {
+    extensions: ['.js', '.jsx', '.tsx', '.ts']
   },
   module: {
     rules: [
       {
-        test: /\.(js)$/,
+        test: /\.(js|jsx|tsx|ts)$/,
         exclude: /node_modules/,
         use: ['babel-loader']
       },
