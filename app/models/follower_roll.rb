@@ -19,6 +19,10 @@ class FollowerRoll < ApplicationRecord
     }
   end
 
+  def test
+    puts "And here"
+  end
+
   private
 
   def max_roll_greater_than_min_roll

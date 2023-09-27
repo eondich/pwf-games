@@ -2,7 +2,7 @@ import React from 'react';
 import { Routes, BrowserRouter as Router, Route } from 'react-router-dom';
 
 import AppHeader from './AppHeader/AppHeader';
-import Home from './Home';
+import FollowerGenerator from './FollowerGenerator/FollowerGenerator';
 
 const App = () => {
   return (
@@ -10,7 +10,7 @@ const App = () => {
       <div>
         <AppHeader />
         <Routes>
-          <Route exact path="/" element={<Home />} />
+          <Route exact path="/" element={<FollowerGenerator />} />
         </Routes>
       </div>
     </Router>

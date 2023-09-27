@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
-  # root "articles#index"
+  # Make index path meaningful
+  namespace :api do
+    namespace :v1 do
+      get 'followers_table/index'
+      get 'followers_table/show/:id', to: 'followers_table#show'
+      get 'followers_table/player_classes', to: 'followers_table#get_player_classes'
+    end
+  end
 end
