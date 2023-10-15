@@ -9,6 +9,11 @@ import "./FollowerGenerator.scss";
 // CONSTANTS
 const tableHeaders = ["D100", "Follower"];
 const tableKeys = ["d100", "name"];
+const d100Image = {
+  src: '/javascript/src/assets/d100.png'
+  // altText: 'A set of d100s'
+};
+
 // To do: add this to global constants file, figure out best practices
 const urlBase = 'http://localhost:3000/api/v1/followers_table'
 
@@ -68,7 +73,6 @@ const FollowerGenerator = () => {
     setFollowerRoll(Math.floor(Math.random() * 99) + 1);
   }
 
-
   // COMPUTED PAGE ELEMENTS
   useEffect(() => {
     const table = currentPlayerClassId > -1 && <StandardTable rows={followerTableData} headers={tableHeaders} keys={tableKeys} />
@@ -93,7 +97,7 @@ const FollowerGenerator = () => {
         { followerTable }
       </div>
       <div className="roll-follower">
-        {/* <StandardButton label="Roll!" onClick={ rollFollower } /> */}
+        <StandardButton image={ d100Image } onClick={ rollFollower } />
       </div>
       { followerDetails }
     </div>

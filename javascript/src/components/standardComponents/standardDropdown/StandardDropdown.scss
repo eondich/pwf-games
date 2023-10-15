@@ -1,14 +1,16 @@
-// @import "../../../../assets/stylesheets/global.css";
+@import "../../global.scss";
 
-// select {
-//   border: none;
-//   border-radius: 0.2rem;
-//   background-color: var(--blue02);
-//   font-size: 20px;
-//   padding: 8px 12px;
-// }
+select {
+  border: none;
+  border-radius: 0.2rem;
+  background-color: $gray02;
+  color: $off-white;
+  caret-color: $off-white;
+  font-size: 20px;
+  padding: 8px 12px;
+}
 
-// .default {
-//   color: var(--blue03);
-//   font-weight: var(--semi-bold);
-// }
+.default {
+  color: #A4BACB;
+  font-weight: $semibold;
+}

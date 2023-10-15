@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./StandardDropdown.scss";
 
 interface DropdownProps {
@@ -14,7 +14,7 @@ function getOptions(allOptions, defaultValue, selectId) {
     return <option value={option['value']} key={`${selectId}-${option['value']}`}>{ option['name'] }</option>
   });
   if (defaultValue) {
-    optionArray.unshift(<option value="" key={`${selectId}-default`} className="default">{defaultValue}</option>);
+    optionArray.unshift(<option value="" disabled selected key={`${selectId}-default`}>{defaultValue}</option>);
   }
   return optionArray;
 }
