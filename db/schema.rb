@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_15_012044) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_15_021833) do
   create_table "ambassadors", force: :cascade do |t|
     t.integer "ancestry_id"
     t.datetime "created_at", null: false
@@ -31,11 +31,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_15_012044) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "character_name_ancetries", id: false, force: :cascade do |t|
+  create_table "character_name_ancestries", id: false, force: :cascade do |t|
     t.integer "ancestry_id"
     t.integer "given_name_id"
-    t.index ["ancestry_id"], name: "index_character_name_ancetries_on_ancestry_id"
-    t.index ["given_name_id"], name: "index_character_name_ancetries_on_given_name_id"
+    t.index ["ancestry_id"], name: "index_character_name_ancestries_on_ancestry_id"
+    t.index ["given_name_id"], name: "index_character_name_ancestries_on_given_name_id"
   end
 
   create_table "character_name_source_materials", id: false, force: :cascade do |t|
@@ -50,6 +50,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_15_012044) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "name_type", null: false
+    t.integer "gender"
   end
 
   create_table "follower_rolls", force: :cascade do |t|
