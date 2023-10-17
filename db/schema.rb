@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_15_021833) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_17_022559) do
   create_table "ambassadors", force: :cascade do |t|
     t.integer "ancestry_id"
     t.datetime "created_at", null: false
@@ -24,25 +24,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_15_021833) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "ancestries_source_materials", id: false, force: :cascade do |t|
+    t.integer "ancestry_id"
+    t.integer "source_material_id"
+    t.index ["ancestry_id"], name: "index_ancestries_source_materials_on_ancestry_id"
+    t.index ["source_material_id"], name: "index_ancestries_source_materials_on_source_material_id"
+  end
+
   create_table "artisans", force: :cascade do |t|
     t.string "name", null: false
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "character_name_ancestries", id: false, force: :cascade do |t|
-    t.integer "ancestry_id"
-    t.integer "given_name_id"
-    t.index ["ancestry_id"], name: "index_character_name_ancestries_on_ancestry_id"
-    t.index ["given_name_id"], name: "index_character_name_ancestries_on_given_name_id"
-  end
-
-  create_table "character_name_source_materials", id: false, force: :cascade do |t|
-    t.integer "character_name_id"
-    t.integer "source_material_id"
-    t.index ["character_name_id"], name: "index_character_name_source_materials_on_character_name_id"
-    t.index ["source_material_id"], name: "index_character_name_source_materials_on_source_material_id"
   end
 
   create_table "character_names", force: :cascade do |t|
@@ -51,6 +44,20 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_15_021833) do
     t.datetime "updated_at", null: false
     t.integer "name_type", null: false
     t.integer "gender"
+  end
+
+  create_table "character_names_ancestries", id: false, force: :cascade do |t|
+    t.integer "ancestry_id"
+    t.integer "given_name_id"
+    t.index ["ancestry_id"], name: "index_character_names_ancestries_on_ancestry_id"
+    t.index ["given_name_id"], name: "index_character_names_ancestries_on_given_name_id"
+  end
+
+  create_table "character_names_source_materials", id: false, force: :cascade do |t|
+    t.integer "character_name_id"
+    t.integer "source_material_id"
+    t.index ["character_name_id"], name: "index_character_names_source_materials_on_character_name_id"
+    t.index ["source_material_id"], name: "index_character_names_source_materials_on_source_material_id"
   end
 
   create_table "follower_rolls", force: :cascade do |t|
@@ -74,10 +81,24 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_15_021833) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "player_class_source_materials", id: false, force: :cascade do |t|
+    t.integer "player_class_id"
+    t.integer "source_material_id"
+    t.index ["player_class_id"], name: "index_player_class_source_materials_on_player_class_id"
+    t.index ["source_material_id"], name: "index_player_class_source_materials_on_source_material_id"
+  end
+
   create_table "player_classes", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "player_subclass_source_materials", id: false, force: :cascade do |t|
+    t.integer "player_subclass_id"
+    t.integer "source_material_id"
+    t.index ["player_subclass_id"], name: "index_player_subclass_source_materials_on_player_subclass_id"
+    t.index ["source_material_id"], name: "index_player_subclass_source_materials_on_source_material_id"
   end
 
   create_table "player_subclasses", force: :cascade do |t|
