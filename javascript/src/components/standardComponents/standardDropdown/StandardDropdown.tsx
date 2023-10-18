@@ -6,20 +6,21 @@ interface DropdownProps {
   label?: string,
   onSelect: Function,
   options: Object[],
-  selectId: string
-}
-
-function getOptions(allOptions, defaultValue, selectId) {
-  const optionArray = allOptions.map(option => {
-    return <option value={option['value']} key={`${selectId}-${option['value']}`}>{ option['name'] }</option>
-  });
-  if (defaultValue) {
-    optionArray.unshift(<option value="" disabled selected key={`${selectId}-default`}>{defaultValue}</option>);
-  }
-  return optionArray;
+  selectId: string,
+  defaultSelectedValue?: number
 }
 
 function StandardDropdown (props: DropdownProps) {
+  function getOptions(allOptions, defaultValue, selectId) {
+    const optionArray = allOptions.map(option => {
+      return <option value={option['id']} key={`${selectId}-${option['id']}`} selected={option['id'] === props.defaultSelectedValue}>{ option['name'] }</option>
+    });
+    if (defaultValue) {
+      optionArray.unshift(<option value="" disabled selected key={`${selectId}-default`}>{defaultValue}</option>);
+    }
+    return optionArray;
+  }
+
   return (
     <div className="standard-dropdown">
       {

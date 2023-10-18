@@ -1,10 +1,4 @@
 class Api::V1::FollowersTableController < ApplicationController
-  # I have these calls in this controller rather than creating more generic endpoints
-  # in a follower_roll and player_class controller respectively so that I can pass
-  # exactly the data I want for the page, no more and no less.  This saves headaches
-  # if I want the same structures (player classes, e.g.) on more than one page but
-  # DON'T want the same data for those structures.
-
   def index
     puts "here"
     f = FollowerRoll.first

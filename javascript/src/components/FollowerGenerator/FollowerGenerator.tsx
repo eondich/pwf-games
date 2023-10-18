@@ -15,7 +15,7 @@ const d100Image = {
 };
 
 // To do: add this to global constants file, figure out best practices
-const urlBase = 'http://localhost:3000/api/v1/followers_table'
+const baseUrl = 'http://localhost:3000/api/v1/followers_table'
 
 const FollowerGenerator = () => {
   const [followerTableData, setFollowerTableData] = useState([]);
@@ -28,7 +28,7 @@ const FollowerGenerator = () => {
 
   // Fetch player classes for dropdown
   useEffect(() => {
-    const url = `${urlBase}/player_classes`;
+    const url = `${baseUrl}/player_classes`;
     fetch(url)
       .then((res) => {
         if (res.ok) {
@@ -44,7 +44,7 @@ const FollowerGenerator = () => {
   // Fetch follower table for selected class
   useEffect(() => {
     if (currentPlayerClassId > -1) {
-      const url = `${urlBase}/show/${currentPlayerClassId}`;
+      const url = `${baseUrl}/show/${currentPlayerClassId}`;
       fetch(url)
         .then((res) => {
           if (res.ok) {

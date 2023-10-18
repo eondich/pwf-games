@@ -2,6 +2,7 @@ import React from 'react';
 import { Routes, BrowserRouter as Router, Route } from 'react-router-dom';
 
 import AppHeader from './AppHeader/AppHeader';
+import CharacterGeneratorPage from './CharacterGenerator/CharacterGeneratorPage';
 import FollowerGenerator from './FollowerGenerator/FollowerGenerator';
 
 const App = () => {
@@ -10,7 +11,8 @@ const App = () => {
       <div>
         <AppHeader />
         <Routes>
-          <Route exact path="/" element={<FollowerGenerator />} />
+          <Route path="/" element={<FollowerGenerator />} />
+          <Route path="character_generator" element={<CharacterGeneratorPage />} />
         </Routes>
       </div>
     </Router>
