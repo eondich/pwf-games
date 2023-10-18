@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_17_022559) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_18_040248) do
   create_table "ambassadors", force: :cascade do |t|
     t.integer "ancestry_id"
     t.datetime "created_at", null: false
@@ -22,6 +22,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_17_022559) do
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "ancestries_character_names", id: false, force: :cascade do |t|
+    t.integer "ancestry_id"
+    t.integer "character_name_id"
+    t.index ["ancestry_id"], name: "index_ancestries_character_names_on_ancestry_id"
+    t.index ["character_name_id"], name: "index_ancestries_character_names_on_character_name_id"
   end
 
   create_table "ancestries_source_materials", id: false, force: :cascade do |t|
@@ -44,13 +51,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_17_022559) do
     t.datetime "updated_at", null: false
     t.integer "name_type", null: false
     t.integer "gender"
-  end
-
-  create_table "character_names_ancestries", id: false, force: :cascade do |t|
-    t.integer "ancestry_id"
-    t.integer "given_name_id"
-    t.index ["ancestry_id"], name: "index_character_names_ancestries_on_ancestry_id"
-    t.index ["given_name_id"], name: "index_character_names_ancestries_on_given_name_id"
   end
 
   create_table "character_names_source_materials", id: false, force: :cascade do |t|
