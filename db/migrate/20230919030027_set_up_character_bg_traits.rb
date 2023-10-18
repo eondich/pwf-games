@@ -5,24 +5,16 @@ class SetUpCharacterBgTraits < ActiveRecord::Migration[7.0]
       t.timestamps
     end
 
-    create_table :given_names do |t|
+    create_table :character_names do |t|
       t.column :value, :string, null: false, unique: true
+      t.column :gender, :integer
+      t.column :name_type, :integer, null: false
       t.timestamps
     end
 
-    create_table :surnames do |t|
-      t.column :value, :string, null: false, unique: true
-      t.timestamps
-    end
-
-    create_table :given_name_ancestries, id: false do |t|
+    create_table :ancestries_character_names, id: false do |t|
       t.belongs_to :ancestry
-      t.belongs_to :given_name
-    end
-
-    create_table :surname_ancestries, id: false do |t|
-      t.belongs_to :ancestry
-      t.belongs_to :surname
+      t.belongs_to :character_name
     end
   end
 end
