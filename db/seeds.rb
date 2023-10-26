@@ -1,8 +1,15 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
 
-# Ancestries
-["human", "halfling", "elf", "tiefling", "half-elf", "dwarf", "gnome", "dragonborn", "hobgoblin", "gnoll", "orc", "lizardfolk"].each do |a|
+# Load PHB as a base source
+phb = SourceMaterial.create(name: "Player's Handbook")
+
+# 5e ancestries
+["human", "halfling", "elf", "tiefling", "half-elf", "dwarf", "gnome", "dragonborn"].each do |a|
+  Ancestry.create(name: a, source_material: [phb])
+end
+
+["hobgoblin", "gnoll", "orc", "lizardfolk"].each do |a|
   Ancestry.create(name: a)
 end
 
@@ -64,9 +71,9 @@ retainer_subclass_map = {
   "theurgist": "abjuration"
 }
 class_retainer_map.keys.each do |class_name|
-  pclass = PlayerClass.create(name: class_name)
+  pclass = PlayerClass.create(name: class_name, source_materials: [phb])
   class_retainer_map[class_name].each do |rclass|
-    psubclass = PlayerSubclass.create(name: retainer_subclass_map[rclass.to_sym], player_class_id: pclass.id)
+    psubclass = PlayerSubclass.create(name: retainer_subclass_map[rclass.to_sym], player_class_id: pclass.id, source_materials: [phb])
     RetainerClass.create(name: rclass, player_subclass: psubclass)
   end
 end

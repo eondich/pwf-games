@@ -1,25 +1,60 @@
+require 'csv'
+
 namespace :character_names do
   desc "Set up character name data"
-  task import: :environment do
-    # This is how you'd create a new source.  I already created the PHB for testing
-    # so just grabbing it instead
-    # example_source = SourceMaterial.create(name: "PHB")
-    example_source = SourceMaterial.find_by(name: "PHB")
-    # You can find all the data I've set up as the default in db/seeds.rb.  I'm
-    # planning to add some source materials to that file as well, we can talk
-    # about that as you start working on this project and presumably need them
-    # for names.  Should we have a game system table, too?  So like put the PHB
-    # and Xanathar's or whatever in source materials and 5e in systems?
-    # Also you can see the db setup in db/schema.rb
-    anc_human = Ancestry.find_by(name: "human")
-    anc_elf = Ancestry.find_by(name: "elf")
-    # Here's the array of possible name types.  Use the index as the value for
-    # name_type.  This data is also in models/character_name.rb
-    # [:given_name, :family_name, :nickname, :clan_name]
-    # Same deal with genders, but female is 0, male is 1, leave out for
-    # agender/ambiguous
-    # Example name entries!  Obviously not in the PHB, don't actually run this
-    CharacterName.create(value: "Willa", name_type: 0, gender: 0, source_materials: [example_source], ancestries: [anc_human, anc_elf])
-    CharacterName.create(value: "Oz", name_type: 2, gender: 1, source_materials: [example_source], ancestries: [anc_human])
+
+  task :import, [:file_name] => :environment do |t, args|
+    if args.file_name
+      begin
+        seen_ancestries = {}
+
+        CSV.foreach(args.file_name, headers: true) do |row|
+          value = row["value"]
+          
+          ancestry_str = row["ancestry"]&.downcase
+          ancestry = if seen_ancestries[ancestry_str]
+            seen_ancestries[ancestry_str]
+          else
+            # Log an error if needed
+            ancestry_obj = Ancestry.find_by(name: ancestry_str)
+            seen_ancestries[ancestry_str] = ancestry_obj
+            ancestry_obj
+          end
+
+          gender_str = row["gender"]&.downcase
+          gender = if gender_str == "f" || gender_str == "female"
+            CharacterName.genders[:female]
+          elsif gender_str == "m" || gender_str == "male"
+            CharacterName.genders[:male]
+          else
+            nil
+          end
+
+          type_str = row["type"]&.downcase
+          type = type_str ? CharacterName.name_types[type_str.to_sym] : nil
+
+          # Don't duplicate a record, but allow for the same name to have multiple
+          # ancestries, genders, and types (Tiffany could be a surname or a first name
+          # used by humans, elves, and halflings, for example)
+          if ancestry
+            unless CharacterName.where(value: value).where(gender: gender).where(name_type: type).joins(:ancestries).where(:ancestries=> {:id => [ancestry.id]}).exists?
+              CharacterName.create(value: value, ancestries: [ancestry], gender: gender, name_type: type)
+            end
+          else
+            CharacterName.where(value: value).where(gender: gender).where(name_type: type).each do |n|
+              unless Ancestry.joins(:character_names).where(:character_names => {id: [n.id]})
+                break
+              end
+            end
+            CharacterName.create(value: value, gender: gender, name_type: type)
+          end
+        end
+      rescue StandardError => e
+        raise e
+      end
+    else
+      puts "Please include file name in arguments"
+      puts "Usage: rake \"character_names:import[filename]\""
+    end
   end
 end
