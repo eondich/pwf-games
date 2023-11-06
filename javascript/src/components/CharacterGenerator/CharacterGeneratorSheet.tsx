@@ -31,7 +31,7 @@ export default function CharacterGeneratorSheet (props: CharacterGeneratorSheetP
                         defaultSelectedValue={props.initCharAncestry} />
       <StandardDropdown defaultValue="Class"
                         options={props.availableClasses}
-                        selectId="char-ancestry-dropdown"
+                        selectId="char-class-dropdown"
                         onSelect={props.onSelectClass}
                         defaultSelectedValue={props.initCharClass} />
     </div>

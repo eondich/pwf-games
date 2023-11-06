@@ -3,8 +3,8 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       # CHARACTER GENERATOR
-      get 'character_generator/ancestries', to: 'character_generator#get_ancestries'
-      get 'character_generator/player_classes', to: 'character_generator#get_player_classes'
+      get 'character_generator/ancestries/:id', to: 'character_generator#get_ancestries_by_source'
+      get 'character_generator/player_classes/:id', to: 'character_generator#get_player_classes_by_source'
       get 'character_generator/sources', to: 'character_generator#get_source_materials'
       # FOLLOWERS TABLE
       get 'followers_table/index'

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 
+import CharacterGeneratorRoller from "./CharacterGeneratorRoller";
 import CharacterGeneratorSheet from "./CharacterGeneratorSheet";
 
 const baseUrl = 'http://localhost:3000/api/v1/character_generator'
@@ -60,7 +61,7 @@ const CharacterGeneratorPage = () => {
           throw new Error("Could not retrieve player classes");
         })
         .then((res) => {
-          setAvailableClasses(res.char_classes);
+          setAvailableClasses(res.player_classes);
         });
     }
   }, [selectedSourceMaterial]);
@@ -68,8 +69,10 @@ const CharacterGeneratorPage = () => {
 
   return (
     <div className="character-generator-page">
-      <CharacterGeneratorSheet availableAncestries={availableAncestries}
-                               availableClasses={availableClasses}
+      <CharacterGeneratorRoller availableSources={availableSourceMaterial || []}
+                                onSelectSource={setSelectedSourceMaterial} />
+      <CharacterGeneratorSheet availableAncestries={availableAncestries || []}
+                               availableClasses={availableClasses || []}
                                onSelectAncestry={setSelectedAncestry}
                                onSelectClass={setSelectedClass} />
     </div>

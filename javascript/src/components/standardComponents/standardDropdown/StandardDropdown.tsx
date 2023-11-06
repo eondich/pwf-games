@@ -2,32 +2,69 @@ import React, { useEffect, useState } from "react";
 import "./StandardDropdown.scss";
 
 interface DropdownProps {
+  defaultSelectedValue?: number,
+  disabled?: boolean,
   defaultValue?: string,
   label?: string,
   onSelect: Function,
   options: Object[],
-  selectId: string,
-  defaultSelectedValue?: number
+  selectId: string
 }
 
 function StandardDropdown (props: DropdownProps) {
+  const [currentlyDisabled, setCurrentlyDisabled] = useState(false);
+  const [selectClasses, setSelectClasses] = useState('');
+  const [selectedValue, setSelectedValue] = useState('');
+
+  // Set currentlyDisabled
+  useEffect(() => {
+    setCurrentlyDisabled(props.disabled || props.options.length === 0);
+  }, [props.disabled, props.options]);
+
+  // Set selectClasses
+  useEffect(() => {
+    let classes = props.selectId
+    if (currentlyDisabled) {
+      classes = classes.concat(`, disabled`);
+    }
+    if (!selectedValue) {
+      classes = classes.concat(`, default`);
+    }
+    setSelectClasses(classes);
+  }, [props.selectId, currentlyDisabled, selectedValue]);
+
+  // Set selectedValue to default
+  useEffect(() => {
+    setSelectedValue(props.defaultSelectedValue);
+  }, [props.defaultSelectedValue]);
+
   function getOptions(allOptions, defaultValue, selectId) {
     const optionArray = allOptions.map(option => {
-      return <option value={option['id']} key={`${selectId}-${option['id']}`} selected={option['id'] === props.defaultSelectedValue}>{ option['name'] }</option>
+      return <option value={option['id']} key={`${selectId}-${option['id']}`}>{ option['name'] }</option>
     });
     if (defaultValue) {
-      optionArray.unshift(<option value="" disabled selected key={`${selectId}-default`}>{defaultValue}</option>);
+      optionArray.unshift(<option value='' disabled key={`${selectId}-default`}>{defaultValue}</option>);
     }
     return optionArray;
   }
 
+  function selectOption(option) {
+    setSelectedValue(option);
+    props.onSelect(option);
+  } 
+  
   return (
     <div className="standard-dropdown">
       {
         (props.label && <label htmlFor={props.selectId} className={`${props.selectId}-label`}>{ props.label }</label>)
       }
       {
-        <select name={props.selectId} id={props.selectId} className={props.selectId} onChange={(e) => { props.onSelect(e.target.value) }}>
+        <select name={ props.selectId }
+                id={ props.selectId }
+                className={ selectClasses }
+                onChange={(e) => { selectOption(e.target.value) }}
+                defaultValue={ props.defaultSelectedValue || '' }
+                disabled={ currentlyDisabled }>
           { getOptions(props.options, props.defaultValue, props.selectId) }
         </select>
       }
