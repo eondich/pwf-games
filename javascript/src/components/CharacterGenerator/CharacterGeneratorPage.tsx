@@ -1,20 +1,23 @@
 import React, { useEffect, useState } from "react";
 
 import CharacterGeneratorRoller from "./CharacterGeneratorRoller";
-import CharacterGeneratorSheet from "./CharacterGeneratorSheet";
+import CharacterCard from "../Cards/CharacterCard";
+import "./CharacterGeneratorPage.scss";
 
-const baseUrl = 'http://localhost:3000/api/v1/character_generator'
+const baseUrl = 'http://localhost:3000/api/v1/character_generator';
 
 const CharacterGeneratorPage = () => {
-  // Grab character name from backend
   const [availableAncestries, setAvailableAncestries] = useState([]);
   const [selectedAncestry, setSelectedAncestry] = useState(null);
+  const [sheetAncestry, setSheetAncestry] = useState(null);
   const [availableClasses, setAvailableClasses] = useState([]);
   const [selectedClass, setSelectedClass] = useState(null);
-  const [selectedCharName, setSelectedCharName] = useState(null);
+  const [sheetClass, setSheetClass] = useState(null);
+  const [availableGenders, setAvailableGenders] = useState([]);
   const [availableSourceMaterial, setAvailableSourceMaterial] = useState([]);
   const [selectedSourceMaterial, setSelectedSourceMaterial] = useState(null);
 
+  // FETCHING DATA
   // Fetch character option sources
   useEffect(() => {
     const url = `${baseUrl}/sources`;
@@ -66,15 +69,55 @@ const CharacterGeneratorPage = () => {
     }
   }, [selectedSourceMaterial]);
 
+  // Fetch gender options
+  useEffect(() => {
+    const url = `${baseUrl}/genders`;
+    fetch(url)
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        throw new Error("Could not retrieve gender options");
+      })
+      .then((res) => {
+        setAvailableGenders();
+      });
+  }, [])
+
+  // FUNCTIONS
+  function generateCharacter() {
+    if (selectedSourceMaterial) {
+      if (selectedAncestry) {
+        setSheetAncestry(selectedAncestry);
+      } else {
+        const ancestryIndex = Math.floor(Math.random() * (availableAncestries.length))
+        setSheetAncestry(availableAncestries[ancestryIndex].id);
+      }
+
+      if (selectedClass) {
+        setSheetClass(selectedClass);
+      } else {
+        const classIndex = Math.floor(Math.random() * (availableClasses.length))
+        setSheetClass(availableClasses[classIndex].id);
+      }
+    }
+  }
 
   return (
     <div className="character-generator-page">
-      <CharacterGeneratorRoller availableSources={availableSourceMaterial || []}
+      <CharacterGeneratorRoller availableAncestries={availableAncestries || []}
+                                availableClasses={availableClasses || []}
+                                availableGenders={availableGenders || []}
+                                availableSources={availableSourceMaterial || []}
+                                onRoll={generateCharacter}
+                                onSelectAncestry={setSelectedAncestry}
+                                onSelectClass={setSelectedClass}
+                                onSelectGender={() => {}}
                                 onSelectSource={setSelectedSourceMaterial} />
-      <CharacterGeneratorSheet availableAncestries={availableAncestries || []}
-                               availableClasses={availableClasses || []}
-                               onSelectAncestry={setSelectedAncestry}
-                               onSelectClass={setSelectedClass} />
+      <CharacterCard availableAncestries={availableAncestries || []}
+                     availableClasses={availableClasses || []}
+                     selectedAncestry={sheetAncestry}
+                     selectedClass={sheetClass} />
     </div>
   )
 }

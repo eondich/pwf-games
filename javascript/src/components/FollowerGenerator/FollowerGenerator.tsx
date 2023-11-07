@@ -93,7 +93,7 @@ const FollowerGenerator = () => {
         <StandardDropdown selectId="player-class-select"
                           options={playerClasses}
                           onSelect={setCurrentPlayerClassId}
-                          defaultValue="Select player class" />
+                          placeholderText="Select player class" />
         { followerTable }
       </div>
       <div className="roll-follower">

@@ -4,7 +4,7 @@ import "./StandardDropdown.scss";
 interface DropdownProps {
   defaultSelectedValue?: number,
   disabled?: boolean,
-  defaultValue?: string,
+  placeholderText?: string,
   label?: string,
   onSelect: Function,
   options: Object[],
@@ -38,12 +38,12 @@ function StandardDropdown (props: DropdownProps) {
     setSelectedValue(props.defaultSelectedValue);
   }, [props.defaultSelectedValue]);
 
-  function getOptions(allOptions, defaultValue, selectId) {
+  function getOptions(allOptions, placeholderText, selectId) {
     const optionArray = allOptions.map(option => {
       return <option value={option['id']} key={`${selectId}-${option['id']}`}>{ option['name'] }</option>
     });
-    if (defaultValue) {
-      optionArray.unshift(<option value='' disabled key={`${selectId}-default`}>{defaultValue}</option>);
+    if (placeholderText) {
+      optionArray.unshift(<option value='' disabled key={`${selectId}-default`}>{placeholderText}</option>);
     }
     return optionArray;
   }
@@ -65,7 +65,7 @@ function StandardDropdown (props: DropdownProps) {
                 onChange={(e) => { selectOption(e.target.value) }}
                 defaultValue={ props.defaultSelectedValue || '' }
                 disabled={ currentlyDisabled }>
-          { getOptions(props.options, props.defaultValue, props.selectId) }
+          { getOptions(props.options, props.placeholderText, props.selectId) }
         </select>
       }
     </ div>

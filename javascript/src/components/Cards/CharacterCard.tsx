@@ -10,30 +10,28 @@ import StandardDropdown from "../standardComponents/standardDropdown/StandardDro
 // different pages will have different rules and will be drawing
 // from different data sets
 
-interface CharacterGeneratorSheetProps {
+interface CharacterCardProps {
   availableAncestries: Object[],
   availableClasses: Object[],
-  initCharAncestry?: number,
-  initCharClass?: number,
   initCharName?: string,
-  onSelectAncestry: Function,
-  onSelectClass: Function
+  selectedAncestry?: number,
+  selectedClass?: number
 }
 
-export default function CharacterGeneratorSheet (props: CharacterGeneratorSheetProps) {
+export default function CharacterCard (props: CharacterCardProps) {
   return (
-    <div className="follower-generator-sheet">
+    <div className="character-card">
       <div className="char-name">{props.initCharName}</div>
-      <StandardDropdown defaultValue="Ancestry"
+      <StandardDropdown placeholderText="Ancestry"
                         options={props.availableAncestries}
                         selectId="char-ancestry-dropdown"
-                        onSelect={props.onSelectAncestry}
-                        defaultSelectedValue={props.initCharAncestry} />
-      <StandardDropdown defaultValue="Class"
+                        onSelect={() => {}}
+                        defaultSelectedValue={props.selectedAncestry} />
+      <StandardDropdown placeholderText="Class"
                         options={props.availableClasses}
                         selectId="char-class-dropdown"
-                        onSelect={props.onSelectClass}
-                        defaultSelectedValue={props.initCharClass} />
+                        onSelect={() => {}}
+                        defaultSelectedValue={props.selectedClass} />
     </div>
   )
 }
