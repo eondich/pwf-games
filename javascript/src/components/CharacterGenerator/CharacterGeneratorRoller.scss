@@ -3,56 +3,55 @@
 .character-generator-roller {
   border: 2px $gray02 solid;
   border-radius: 0.5rem;
-  width: 700px;
-}
 
-h1 {
-  border-bottom: 1px $gray02 solid;
-  margin: 0;
-  padding: 18px;
-  font-size: 28px;
-}
-
-.standard-dropdown {
-  width: 140px;
-}
-
-.roller-options {
-  padding: 18px;
-  // This is NOT the final design, just want to get something running
-  display: flex;
-  justify-content: space-between;
-  border-bottom: 1px $gray02 solid;
-}
-
-.standard-button.roller-options-header {
-  border-top: none;
-  border-left: none;
-  border-right: none;
-  border-bottom: 1px $gray02 solid;
-  border-radius: 0;
-  width: 100%;
-
-  h2 {
-    font-size: 22px;
+  h1 {
+    border-bottom: 1px $gray02 solid;
     margin: 0;
-    font-family: 'Montserrat';
+    padding: 18px;
+    font-size: 28px;
   }
-}
-
-.footer {
-  height: 60px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  .standard-button {
-    height: 40px;
-    width: 40px;
-
-    img {
-      height: 22px;
-      margin-top: 4px;
+  
+  .standard-dropdown {
+    width: 140px;
+  }
+  
+  .roller-options {
+    padding: 18px;
+    // This is NOT the final design, just want to get something running
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px $gray02 solid;
+  }
+  
+  .standard-button.roller-options-header {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px $gray02 solid;
+    border-radius: 0;
+    width: 100%;
+  
+    h2 {
+      font-size: 22px;
+      margin: 0;
+      font-family: 'Montserrat';
+    }
+  }
+  
+  .footer {
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    .standard-button {
+      height: 40px;
+      width: 40px;
+  
+      img {
+        height: 22px;
+        margin-top: 4px;
+      }
     }
   }
 }

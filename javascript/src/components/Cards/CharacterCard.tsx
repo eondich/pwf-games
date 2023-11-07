@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 
 import StandardDropdown from "../standardComponents/standardDropdown/StandardDropdown";
 
+import "./CharacterCard.scss";
+
 // Keeping this super simple for now, character sheet design
 // is a big project but I want some basic functionality
 // running so we can use this in our game

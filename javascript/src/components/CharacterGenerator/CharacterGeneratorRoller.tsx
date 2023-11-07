@@ -46,7 +46,7 @@ export default function CharacterGeneratorRoller (props: CharacterGeneratorRolle
       </div>
       <div className="footer">
         <StandardButton onClick={props.onRoll}>
-          <img src={d100} alt="A d100" />
+          <img src={d100} alt="Roll a character" />
         </StandardButton>
       </div>
     </div>

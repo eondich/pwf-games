@@ -63,7 +63,7 @@ function StandardDropdown (props: DropdownProps) {
                 id={ props.selectId }
                 className={ selectClasses }
                 onChange={(e) => { selectOption(e.target.value) }}
-                defaultValue={ props.defaultSelectedValue || '' }
+                value={ selectedValue }
                 disabled={ currentlyDisabled }>
           { getOptions(props.options, props.placeholderText, props.selectId) }
         </select>

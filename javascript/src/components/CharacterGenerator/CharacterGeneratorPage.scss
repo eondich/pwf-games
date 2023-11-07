@@ -2,5 +2,14 @@
 
 .character-generator-page {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+
+  .character-generator-roller, .character-card {
+    width: 700px;
+  }
+
+  .character-card {
+    margin-top: 64px;
+  }
 }
