@@ -11,7 +11,7 @@ class FollowerRoll < ApplicationRecord
   # together the d100 roll on the fly)
   def serialized_for_generator
     {
-      id: id,
+      id: id.to_s,
       d100: "#{ min_roll.to_i } - #{ max_roll.to_i }",
       min_roll: min_roll.to_i,
       max_roll: max_roll.to_i,

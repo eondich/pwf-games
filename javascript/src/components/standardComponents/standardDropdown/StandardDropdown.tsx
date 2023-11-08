@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./StandardDropdown.scss";
 
 interface DropdownProps {
-  defaultSelectedValue?: number,
+  defaultSelectedValue?: string,
   disabled?: boolean,
   placeholderText?: string,
   label?: string,
@@ -35,7 +35,7 @@ function StandardDropdown (props: DropdownProps) {
 
   // Set selectedValue to default
   useEffect(() => {
-    setSelectedValue(props.defaultSelectedValue);
+    setSelectedValue(props.defaultSelectedValue || "");
   }, [props.defaultSelectedValue]);
 
   function getOptions(allOptions, placeholderText, selectId) {

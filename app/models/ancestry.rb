@@ -5,7 +5,7 @@ class Ancestry < ApplicationRecord
 
   def serialized_for_character_generator
     {
-      id: id, 
+      id: id.to_s, 
       name: name.titleize
     }
   end

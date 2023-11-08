@@ -11,8 +11,8 @@ interface CharacterGeneratorRollerProps {
   availableClasses: Object[],
   availableGenders: Object[],
   availableSources: Object[],
-  initCharAncestry?: number,
-  initCharClass?: number,
+  initCharAncestry?: string,
+  initCharClass?: string,
   onRoll: Function,
   onSelectAncestry: Function,
   onSelectClass: Function,
@@ -39,7 +39,7 @@ export default function CharacterGeneratorRoller (props: CharacterGeneratorRolle
                           selectId="char-class-dropdown"
                           onSelect={props.onSelectClass}
                           defaultSelectedValue={props.initCharClass} />
-        <StandardDropdown placeholderText="Gender"
+        <StandardDropdown placeholderText="Name Gender"
                           options={props.availableGenders}
                           selectId="char-gender-dropdown"
                           onSelect={props.onSelectGender}/>

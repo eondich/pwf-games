@@ -5,4 +5,14 @@
   border-radius: 0.5rem;
   display: flex;
   justify-content: space-between;
+
+  .standard-textbox input {
+    background-color: $gray02;
+    color: $off-white;
+
+  }
+
+  .standard-dropdown {
+    width: 140px;
+  }
 }

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import StandardDropdown from "../standardComponents/standardDropdown/StandardDropdown";
+import StandardTextbox from "../standardComponents/standardTextBox/StandardTextBox";
 
 import "./CharacterCard.scss";
 
@@ -15,15 +16,17 @@ import "./CharacterCard.scss";
 interface CharacterCardProps {
   availableAncestries: Object[],
   availableClasses: Object[],
-  initCharName?: string,
-  selectedAncestry?: number,
-  selectedClass?: number
+  presetCharName?: string,
+  selectedAncestry?: string,
+  selectedClass?: string
 }
 
 export default function CharacterCard (props: CharacterCardProps) {
   return (
     <div className="character-card">
-      <div className="char-name">{props.initCharName}</div>
+      <StandardTextbox placeholder="Name"
+                       id="char-name"
+                       defaultValue={props.presetCharName} />
       <StandardDropdown placeholderText="Ancestry"
                         options={props.availableAncestries}
                         selectId="char-ancestry-dropdown"

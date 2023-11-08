@@ -5,14 +5,14 @@ class PlayerClass < ApplicationRecord
 
   def serialized_for_follower_generator
     {
-      id: id,
+      id: id.to_s,
       name: name.titleize
     }
   end
 
   def serialized_for_character_generator
     {
-      id: id,
+      id: id.to_s,
       name: name.titleize
     }
   end

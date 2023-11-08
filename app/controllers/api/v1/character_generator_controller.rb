@@ -14,19 +14,18 @@ class Api::V1::CharacterGeneratorController < ApplicationController
 
     serialized_genders = genders.map do |gender|
       {
-        id: gender[1],
-        name: gender[0]
+        id: gender[1].to_s,
+        name: gender[0].titleize
       }
     end
 
-    # Cleaner way to do this?
     serialized_genders.push({
-      id: -1,
+      id: "nb",
       name: 'Nonbinary'
     })
 
     serialized_genders.push({
-      id: -2,
+      id: "any",
       name: 'Any'
     })
 
@@ -38,8 +37,33 @@ class Api::V1::CharacterGeneratorController < ApplicationController
   # GET character_generator/character_name/:src/:ancestry/:gender
   def get_new_character_name
     source_material_id = params[:src].to_i
-    ancestry = params[:ancestry]
+    ancestry_id = params[:ancestry].to_i
     gender = params[:gender]
+
+    # Skipping source material for now because our data's not up to it, we'll really want to 
+    # change this to system as the primary check anyways
+    available_names = CharacterName.includes(:ancestries).where("ancestries.id" => ancestry_id)
+
+    given_names = if gender == "nb"
+      available_names.where(name_type: "given_name").where(gender: nil)
+    elsif gender == "any"
+      available_names.where(name_type: "given_name")
+    else
+      available_names.where(name_type: "given_name").where(gender: gender.to_i)
+    end
+
+    surnames = available_names.where(name_type: "surname")
+
+    name = given_names[rand(given_names.count)].value
+    # Not all ancestries use surnames
+    if surnames.count > 0
+      surname = surnames[rand(surnames.count)]
+      name = "#{name} #{surname.value}"
+    end
+
+    render json: {
+      character_name: name
+    }
   end
 
   # GET /character_generator/player_classes/:source_id
