@@ -10,25 +10,23 @@ interface CharacterGeneratorRollerProps {
   availableAncestries: Object[],
   availableClasses: Object[],
   availableGenders: Object[],
-  availableSources: Object[],
   initCharAncestry?: string,
   initCharClass?: string,
   onRoll: Function,
   onSelectAncestry: Function,
   onSelectClass: Function,
   onSelectGender: Function,
-  onSelectSource: Function
+  systemName: string
 }
 
 export default function CharacterGeneratorRoller (props: CharacterGeneratorRollerProps) {
   return (
     <div className="character-generator-roller">
-      <h1>Character Roller</h1>
+      <h1>
+        <span>Character Roller</span>
+        <span class="system-name">{ props.systemName }</span>
+      </h1>
       <div className="base-options roller-options">
-        <StandardDropdown placeholderText="Source"
-                          selectId="source-material-dropdown"
-                          options={props.availableSources}
-                          onSelect={props.onSelectSource} />
         <StandardDropdown placeholderText="Ancestry"
                           options={props.availableAncestries}
                           selectId="char-ancestry-dropdown"

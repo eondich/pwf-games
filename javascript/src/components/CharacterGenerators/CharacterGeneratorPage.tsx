@@ -4,9 +4,13 @@ import CharacterGeneratorRoller from "./CharacterGeneratorRoller";
 import CharacterCard from "../Cards/CharacterCard";
 import "./CharacterGeneratorPage.scss";
 
+interface CharacterGeneratorProps {
+  gameSystemName: string
+}
+
 const baseUrl = 'http://localhost:3000/api/v1/character_generator';
 
-const CharacterGeneratorPage = () => {
+const CharacterGeneratorPage = (props: CharacterGeneratorProps) => {
   const [availableAncestries, setAvailableAncestries] = useState([]);
   const [selectedAncestry, setSelectedAncestry] = useState("");
   const [sheetAncestry, setSheetAncestry] = useState("");
@@ -15,49 +19,45 @@ const CharacterGeneratorPage = () => {
   const [sheetClass, setSheetClass] = useState("");
   const [availableGenders, setAvailableGenders] = useState([]);
   const [selectedNameGender, setSelectedNameGender] = useState("any");
-  const [availableSourceMaterial, setAvailableSourceMaterial] = useState([]);
-  const [selectedSourceMaterial, setSelectedSourceMaterial] = useState("");
   const [characterName, setCharacterName] = useState("");
+  const [gameSystem, setGameSystem] = useState(null);
 
   // FETCHING DATA
-  // Fetch character option sources
+  // Fetch game system ID
   useEffect(() => {
-    const url = `${baseUrl}/sources`;
+    const url = `${baseUrl}/system_id/${props.gameSystemName}`;
     fetch(url)
       .then((res) => {
         if (res.ok) {
           return res.json();
         }
-        throw new Error("Could not retrieve character option sources");
+        throw new Error("Could not retrieve game system");
       })
       .then((res) => {
-        setAvailableSourceMaterial(res.sources);
+        setGameSystem(Number(res.system_id));
       });
   }, []);
 
   // Fetch ancestry options based on source materials
   useEffect(() => {
-    // Only try to grab this data if we have a source selected
-    if (selectedSourceMaterial) {
-      const url = `${baseUrl}/ancestries/${selectedSourceMaterial}`;
-      fetch(url)
-        .then((res) => {
-          if (res.ok) {
-            return res.json();
-          }
-          throw new Error("Could not retrieve ancestries");
-        })
-        .then((res) => {
-          setAvailableAncestries(res.ancestries);
-        });
-    }
-  }, [selectedSourceMaterial]);
+    const url = `${baseUrl}/ancestries/${gameSystem}`;
+    fetch(url)
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        throw new Error("Could not retrieve ancestries");
+      })
+      .then((res) => {
+        setAvailableAncestries(res.ancestries);
+      });
+  }, [gameSystem]);
 
   // Fetch class options based on source materials
   useEffect(() => {
     // Only try to grab this data if we have a source selected
-    if (selectedSourceMaterial) {
-      const url = `${baseUrl}/player_classes/${selectedSourceMaterial}`;
+    if (gameSystem) {
+      const url = `${baseUrl}/player_classes/${gameSystem}`;
       fetch(url)
         .then((res) => {
           if (res.ok) {
@@ -69,7 +69,7 @@ const CharacterGeneratorPage = () => {
           setAvailableClasses(res.player_classes);
         });
     }
-  }, [selectedSourceMaterial]);
+  }, [gameSystem]);
 
   // Fetch gender options
   useEffect(() => {
@@ -88,29 +88,27 @@ const CharacterGeneratorPage = () => {
 
   // FUNCTIONS
   function generateCharacter() {
-    if (selectedSourceMaterial) {
-      let ancestryId = selectedAncestry;
-      if (selectedAncestry) {
-        setSheetAncestry(selectedAncestry);
-      } else {
-        const ancestryIndex = Math.floor(Math.random() * (availableAncestries.length))
-        ancestryId = availableAncestries[ancestryIndex].id
-        setSheetAncestry(ancestryId);
-      }
-
-      if (selectedClass) {
-        setSheetClass(selectedClass);
-      } else {
-        const classIndex = Math.floor(Math.random() * (availableClasses.length))
-        setSheetClass(availableClasses[classIndex].id);
-      }
-
-      fetchCharacterName(selectedSourceMaterial, ancestryId, selectedNameGender);
+    let ancestryId = selectedAncestry;
+    if (selectedAncestry) {
+      setSheetAncestry(selectedAncestry);
+    } else {
+      const ancestryIndex = Math.floor(Math.random() * (availableAncestries.length))
+      ancestryId = availableAncestries[ancestryIndex].id
+      setSheetAncestry(ancestryId);
     }
+
+    if (selectedClass) {
+      setSheetClass(selectedClass);
+    } else {
+      const classIndex = Math.floor(Math.random() * (availableClasses.length))
+      setSheetClass(availableClasses[classIndex].id);
+    }
+
+    fetchCharacterName(gameSystem, ancestryId, selectedNameGender);
   }
 
-  function fetchCharacterName(sourceId, ancestryId, gender) {
-    const url = `${baseUrl}/character_name/${sourceId}/${ancestryId}/${gender}`
+  function fetchCharacterName(systemId, ancestryId, gender) {
+    const url = `${baseUrl}/character_name/${systemId}/${ancestryId}/${gender}`
     fetch(url)
       .then((res) => {
         if (res.ok) {
@@ -128,12 +126,11 @@ const CharacterGeneratorPage = () => {
       <CharacterGeneratorRoller availableAncestries={availableAncestries || []}
                                 availableClasses={availableClasses || []}
                                 availableGenders={availableGenders || []}
-                                availableSources={availableSourceMaterial || []}
                                 onRoll={generateCharacter}
                                 onSelectAncestry={setSelectedAncestry}
                                 onSelectClass={setSelectedClass}
                                 onSelectGender={setSelectedNameGender}
-                                onSelectSource={setSelectedSourceMaterial} />
+                                systemName={props.gameSystemName} />
       <CharacterCard availableAncestries={availableAncestries || []}
                      availableClasses={availableClasses || []}
                      presetCharName={characterName}
