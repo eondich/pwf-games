@@ -15,13 +15,17 @@ interface CharacterGeneratorRollerProps {
   onRoll: Function,
   onSelectAncestry: Function,
   onSelectClass: Function,
-  onSelectGender: Function
+  onSelectGender: Function,
+  systemName: string
 }
 
 export default function CharacterGeneratorRoller (props: CharacterGeneratorRollerProps) {
   return (
     <div className="character-generator-roller">
-      <h1>Character Roller</h1>
+      <h1>
+        <span>Character Roller</span>
+        <span class="system-name">{ props.systemName }</span>
+      </h1>
       <div className="base-options roller-options">
         <StandardDropdown placeholderText="Ancestry"
                           options={props.availableAncestries}

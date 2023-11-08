@@ -6,7 +6,7 @@ import CharacterGeneratorPage from './CharacterGenerators/CharacterGeneratorPage
 
 const App = () => {
   const gameSystems = {
-    'dnd5e': 'Dungeons & Dragons'
+    'dnd5e': 'dungeons & dragons'
   }
 
   return (

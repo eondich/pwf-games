@@ -63,7 +63,11 @@ class Api::V1::CharacterGeneratorController < ApplicationController
 
     surnames = available_names.where(name_type: "surname")
 
-    name = given_names[rand(given_names.count)].value
+    name = if given_names.count > 0
+      given_names[rand(given_names.count)].value
+    else
+      "Qussk"
+    end
     # Not all ancestries use surnames
     if surnames.count > 0
       surname = surnames[rand(surnames.count)]

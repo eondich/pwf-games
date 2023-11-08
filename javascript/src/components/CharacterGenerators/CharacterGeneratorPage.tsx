@@ -129,7 +129,8 @@ const CharacterGeneratorPage = (props: CharacterGeneratorProps) => {
                                 onRoll={generateCharacter}
                                 onSelectAncestry={setSelectedAncestry}
                                 onSelectClass={setSelectedClass}
-                                onSelectGender={setSelectedNameGender} />
+                                onSelectGender={setSelectedNameGender}
+                                systemName={props.gameSystemName} />
       <CharacterCard availableAncestries={availableAncestries || []}
                      availableClasses={availableClasses || []}
                      presetCharName={characterName}
