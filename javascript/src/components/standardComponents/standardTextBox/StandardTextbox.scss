@@ -1,0 +1,11 @@
+@import "../../global.scss";
+
+.standard-textbox {
+  input {
+    height: 100%;
+    font-family: $font-family;
+    border: none;
+    border-radius: 0.2rem;
+    padding: 0 12px;
+  }
+}
