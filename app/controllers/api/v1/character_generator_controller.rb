@@ -1,10 +1,19 @@
 class Api::V1::CharacterGeneratorController < ApplicationController
-  # GET /character_generator/ancestries/:source_id
+  # GET /character_generator/ancestries/:system_id
   def get_ancestries_by_source
-    source_material_id = params[:id].to_i
-    ancestries = Ancestry.includes(:source_materials).where("source_materials.id" => source_material_id).map { |ancestry| ancestry.serialized_for_character_generator }
+    system_id = params[:id].to_i
+    ancestries = Ancestry.includes(:game_systems).where("game_systems.id" => system_id).map { |ancestry| ancestry.serialized_for_character_generator }
     render json: {
       ancestries: ancestries
+    }
+  end
+
+  # GET /character_generator/system_id/:system_name
+  def get_system_id
+    system_name = params[:system_name]
+    system = GameSystem.find_by(name: system_name)
+    render json: {
+      system_id: system.id
     }
   end
 
@@ -34,9 +43,9 @@ class Api::V1::CharacterGeneratorController < ApplicationController
     }
   end
 
-  # GET character_generator/character_name/:src/:ancestry/:gender
+  # GET character_generator/character_name/:system/:ancestry/:gender
   def get_new_character_name
-    source_material_id = params[:src].to_i
+    system_id = params[:system].to_i
     ancestry_id = params[:ancestry].to_i
     gender = params[:gender]
 
@@ -68,15 +77,15 @@ class Api::V1::CharacterGeneratorController < ApplicationController
 
   # GET /character_generator/player_classes/:source_id
   def get_player_classes_by_source
-    source_material_id = params[:id].to_i
-    pclasses = PlayerClass.includes(:source_materials).where("source_materials.id" => source_material_id).map { |pclass| pclass.serialized_for_character_generator }
+    system_id = params[:id].to_i
+    pclasses = PlayerClass.includes(:game_systems).where("game_systems.id" => system_id).map { |pclass| pclass.serialized_for_character_generator }
     render json: {
       player_classes: pclasses
     }
   end
 
   # GET /character_generator/sources
-  def get_source_materials
+  def get_game_systems
     sources = SourceMaterial.all.map { |source| source.serialized_for_character_generator }
     render json: { 
       sources: sources

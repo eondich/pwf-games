@@ -10,11 +10,5 @@ class SetUpDndClasses < ActiveRecord::Migration[7.0]
       t.column :name, :string, null: false, unique: true
       t.timestamps
     end
-
-    create_table :retainer_classes do |t|
-      t.belongs_to :player_subclass, index: true, foreign_key: true
-      t.column :name, :string, null: false, unique: true
-      t.timestamps
-    end
   end
 end
