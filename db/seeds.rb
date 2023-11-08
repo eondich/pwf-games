@@ -2,7 +2,7 @@
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
 
 # Add dnd as a system
-dnd = GameSystem.create(name: "Dungeons & Dragons")
+dnd = GameSystem.create(name: "dungeons & dragons")
 
 # Ancestries
 ["human", "halfling", "elf", "tiefling", "half-elf", "dwarf", "gnome", "dragonborn", "hobgoblin", "gnoll", "orc", "lizardfolk"].each do |a|
