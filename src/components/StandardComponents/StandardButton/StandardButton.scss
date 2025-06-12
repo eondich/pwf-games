@@ -1,0 +1,16 @@
+@import "../../global.scss";
+
+.standard-button {
+  color: $off-white;
+  background-color: transparent;
+  border: 2px $gray02 solid;
+  border-radius: 0.2rem;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &.icon {
+    border: none;
+  }
+}

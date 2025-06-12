@@ -1,0 +1,27 @@
+@import "../../global.scss";
+
+.standard-multiselect {
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.2rem;
+  overflow: scroll;
+  border: 1px solid $gray02;
+
+  .option {
+    text-align: left;
+    border-radius: 0%;
+    border: 1px solid $gray02;
+    background-color: $gray01;
+    color: $off-white;
+    padding: 6px 8px;
+    font-size: 18px;
+    
+    &:hover {
+      cursor: pointer;
+    }
+
+    &.selected {
+      background-color: #0D1C1C;
+    }
+  }
+}

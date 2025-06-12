@@ -1,0 +1,16 @@
+@import '../global.scss';
+
+.app-header {
+  margin-bottom: 40px;
+
+  .main-header {
+    width: 100%;
+    font-size: 24px;
+    padding: 16px 24px;
+    border-bottom: 1px solid $gray02;
+  }
+
+  .menu, .main-header {
+    width: 100%;
+  }
+}

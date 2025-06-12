@@ -1,0 +1,26 @@
+@import "../../global.scss";
+
+.standard-dropdown {
+  select {
+    border: none;
+    border-radius: 0.2rem;
+    background-color: $gray02;
+    caret-color: $off-white;
+    color: $off-white;
+    font-size: 20px;
+    padding: 8px 12px;
+    width: 100%;
+    margin-top: 4px;
+
+    &.disabled {
+      color: $gray04;
+      background-color: $gray03;
+      border: 1px solid $gray02;
+      margin: 3px -1px -1px;
+    }
+  }
+  
+  .default:not(.disabled) {
+    font-weight: $semibold;
+  }
+}

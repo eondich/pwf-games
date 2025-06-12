@@ -1,0 +1,83 @@
+@import "../global.scss";
+
+.character-generator-roller {
+  border: 2px $gray02 solid;
+  border-radius: 0.5rem;
+
+  h1 {
+    border-bottom: 1px $gray02 solid;
+    margin: 0;
+    padding: 18px;
+    font-size: 28px;
+    display: flex;
+    justify-content: space-between;
+
+    .system-name {
+      text-transform: capitalize;
+      font-size: 18px;
+      margin: auto 0;
+    }
+  }
+  
+  .standard-dropdown {
+    width: 180px;
+  }
+
+  .roller-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    row-gap: 24px;
+    padding: 18px;
+    // This is NOT the final design, just want to get something running
+    border-bottom: 1px $gray02 solid;
+
+    .lineage-dropdown {
+      grid-column-start: 2;
+    }
+
+    .subclasses-dropdown {
+      grid-column-start: 3;
+    }
+
+    .appearances-dropdown {
+      grid-column: 1 / span 2;
+      width: 400px;
+    }
+  }
+
+  .standard-multiselect {
+    width: 268px;
+  }
+  
+  .standard-button.roller-options-header {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 1px $gray02 solid;
+    border-radius: 0;
+    width: 100%;
+  
+    h2 {
+      font-size: 22px;
+      margin: 0;
+      font-family: 'Montserrat';
+    }
+  }
+  
+  .footer {
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    .standard-button {
+      height: 40px;
+      width: 40px;
+  
+      img {
+        height: 22px;
+        margin-top: 4px;
+      }
+    }
+  }
+}

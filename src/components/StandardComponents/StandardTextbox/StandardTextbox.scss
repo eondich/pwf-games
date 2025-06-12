@@ -1,0 +1,16 @@
+@import "../../global.scss";
+
+.standard-textbox {
+  display: flex;
+  flex-direction: column;
+
+  input {
+    height: 100%;
+    font-family: $font-family;
+    border: none;
+    border-radius: 0.2rem;
+    padding: 0 12px;
+    flex-grow: 1;
+    margin-top: 4px;
+  }
+}
