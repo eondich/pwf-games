@@ -9,7 +9,7 @@ namespace :character_names do
         seen_ancestries = {}
         seen_styles = {}
 
-        CSV.foreach('./names.csv', headers: true) do |row|
+        CSV.foreach(args.file_name, headers: true) do |row|
           value = row["value"]
           
           ancestry_str = row["ancestry"]&.downcase

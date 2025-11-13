@@ -8,7 +8,13 @@
             :class="selectClasses"
             :value="selectedValue"
             :disabled="currentlyDisabled"
-            @change="e => $emit('select', e.target.value)">
+            @change="e => {
+              $emit('select', e.target.value);
+              // I am sure there's a better way to do this, and I'll come back and figure it out when I do some 
+              // SERIOUS code cleanup after getting HMTW sorted (ah, the joys of doing a personal project that
+              // spans years)
+              selectedValue = e.target.value;
+            }">
       <option v-if="props.placeholderText"
               value=""
               :key="`${props.selectId}-default`">{{ props.placeholderText }}</option>
@@ -53,7 +59,7 @@ const props = defineProps({
 
   // Computed values
   let currentlyDisabled = computed(() => {
-    return props.disabled || props.options == null || props.options.length === 0;
+    return props.disabled || !props.options || props.options.length === 0;
   });
 
   let selectClasses = computed(() => {
@@ -62,7 +68,7 @@ const props = defineProps({
       classes = classes.concat(' disabled');
     }
     if (!selectedValue.value) {
-      classes = classes.concat(' default');
+      classes = classes.concat(' placeholder');
     }
     return classes;
   });

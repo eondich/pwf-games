@@ -23,14 +23,12 @@
                         :options="props.dropdownOptions.value.backgrounds"
                         selectId="char-class-dropdown"
                         @select="e => $emit('setBackground', e)" />
-      <StandardDropdown :disabled="!props.generatorDropdownOptions.lineages?.length"
-                        placeholderText="Lineages"
+      <StandardDropdown placeholderText="Lineages"
                         :options="props.generatorDropdownOptions.lineages"
                         selectId="char-lineage-dropdown"
                         @select="e => $emit('setLineage', e)"
                         class="lineage-dropdown" />
-      <StandardDropdown :disabled="!props.generatorDropdownOptions.characterSubclasses?.length"
-                        placeholderText="Subclass"
+      <StandardDropdown placeholderText="Subclass"
                         :options="props.generatorDropdownOptions.characterSubclasses"
                         selectId="char-subclass-dropdown"
                         @select="e => $emit('setSubclass', e)"

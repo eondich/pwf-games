@@ -20,7 +20,7 @@
     }
   }
   
-  .default:not(.disabled) {
+  .placeholder:not(.disabled) {
     font-weight: $semibold;
   }
 }

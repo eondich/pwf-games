@@ -125,7 +125,7 @@ function fetchCharacterSubclasses (characterClassId) {
 function selectAncestry (newAncestry) {
   generatorSelectedOptions.ancestry = newAncestry;
   fetchLineages(newAncestry).then(res => {
-    generatorDropdownOptions.lineages = res;
+    generatorDropdownOptions.lineages = res || [];
   });
 }
 

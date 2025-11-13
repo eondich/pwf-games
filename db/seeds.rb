@@ -22,9 +22,11 @@ lineage_map = {
   # ancestry.game_systems << dnd2014
   ancestry.game_systems << dnd2024
 
-  if lineage_map[a]
-    lineage_map[a].each do |l|
-      Lineages.create(name: l, ancestry: ancestry, game_system: dnd2024)
+  a_key = a.to_sym
+
+  if lineage_map[a_key]
+    lineage_map[a_key].each do |l|
+      Lineage.create(name: l, ancestry: ancestry, game_system: dnd2024)
     end
   end
 end
@@ -209,7 +211,7 @@ end
 
 # Name styles (5e 2024)
 ["common", "guttural", "lyrical", "monosyllabic", "sinister", "whimsical"].each do |name_style|
-  s = NameStyle.create(name: name_style)
+  s = NameStyle.create(style: name_style)
   s.game_systems << dnd2024
 end
 
